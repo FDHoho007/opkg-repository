@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     perl \
     ca-certificates \
+    inotify-tools \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -19,8 +20,8 @@ RUN git clone https://git.yoctoproject.org/opkg-utils.git /tmp/opkg-utils \
     && rm -rf /tmp/opkg-utils
 
 # Prepare Nginx configuration
-RUN mkdir -p /packages /var/www/html /var/log/nginx \
-    && chown -R www-data:www-data /var/www/html /var/log/nginx \
+RUN mkdir -p /packages /var/www/html \
+    && chown -R www-data:www-data /var/www/html \
     && rm /var/www/html/index.nginx-debian.html
 COPY nginx.conf /etc/nginx/sites-available/default
 
